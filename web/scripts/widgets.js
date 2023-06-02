@@ -453,11 +453,6 @@ async function loadImageAsync(imageURL) {
 }
 
 const MULTIIMAGEUPLOAD = (node, inputName, inputData, app) => {
-	console.error("LOADDATA", node, inputName, inputData)
-	if (typeof inputData === "string") {
-		inputData = [inputData]
-	}
-
 	const imagesWidget = node.addWidget("text", inputName, inputData, () => {})
 	imagesWidget.disabled = true;
 
@@ -487,6 +482,9 @@ const MULTIIMAGEUPLOAD = (node, inputName, inputData, app) => {
 	var default_value = imagesWidget.value;
 	Object.defineProperty(imagesWidget, "value", {
 		set : function(value) {
+			if (typeof value === "string") {
+				value = [value]
+			}
 			this._real_value = value;
 		},
 
